@@ -13,9 +13,12 @@ screen =  pygame.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))
 
 SNAKE_SIZE = 15;
 
+actionList = []
+
 direction = [[0, SNAKE_SIZE], [SNAKE_SIZE, 0], [0, -SNAKE_SIZE], [-SNAKE_SIZE, 0]]
 
 head_direction = 1
+inst_head_dir = 1
 
 clock = pygame.time.Clock()
 
@@ -62,22 +65,36 @@ while not done:
 	#draw apple
 	pygame.draw.rect(screen, BLACK, (apple_pos[0], apple_pos[1], SNAKE_SIZE, SNAKE_SIZE))
 
+	
+
 	for event in pygame.event.get():  # User did something
 		if event.type == pygame.QUIT:  # If user clicked close
 			done = True  # Flag that we are done so we exit this loop	
 		if event.type == pygame.KEYDOWN:
-			if (event.key == pygame.K_UP and not head_direction == 0):
-				head_direction = 2
+			if (event.key == pygame.K_UP and not inst_head_dir == 0):
+				#head_direction = 2
+				inst_head_dir = 2
+				actionList.append(2)
 				#head[0] = int((head[0] / SNAKE_SIZE)) * SNAKE_SIZE
-			elif (event.key == pygame.K_RIGHT and not head_direction == 3):
-				head_direction = 1
+			elif (event.key == pygame.K_RIGHT and not inst_head_dir == 3):
+				#head_direction = 1
+				inst_head_dir = 1
+				actionList.append(1)
 				#head[1] = int((head[1] / SNAKE_SIZE)) * SNAKE_SIZE
-			elif (event.key == pygame.K_DOWN and not head_direction == 2):
-				head_direction = 0
+			elif (event.key == pygame.K_DOWN and not inst_head_dir == 2):
+				#head_direction = 0
+				inst_head_dir = 0
+				actionList.append(0)
 				#head[0] = int((head[0] / SNAKE_SIZE)) * SNAKE_SIZE
-			elif (event.key == pygame.K_LEFT and not head_direction == 1):
-				head_direction = 3
+			elif (event.key == pygame.K_LEFT and not inst_head_dir == 1):
+				#head_direction = 3
+				inst_head_dir = 3
+				actionList.append(3)
 				#head[1] = int((head[1] / SNAKE_SIZE)) * SNAKE_SIZE
+
+	#update direction
+	if (len(actionList) != 0):
+		head_direction = actionList.pop(0)
 
 
 	#check for eating apples
