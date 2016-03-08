@@ -45,6 +45,16 @@ apple_pos = [int(random.randint(0, 600 - SNAKE_SIZE)/SNAKE_SIZE)*SNAKE_SIZE, int
 pygame.mixer.music.load('bb-game.mid')
 pygame.mixer.music.play(-1, 0)
 
+#This function creates a new apple position.
+#it also assures that the new apple position cannot be inside the snake.
+def createNewApple():
+	global apple_pos
+	apple_pos = [int(random.randint(SNAKE_SIZE, 600 - 2 * SNAKE_SIZE)/SNAKE_SIZE)*SNAKE_SIZE, int(random.randint(SNAKE_SIZE, 600 - 2 * SNAKE_SIZE)/SNAKE_SIZE)*SNAKE_SIZE]
+	while (apple_pos in snake):
+		apple_pos = [int(random.randint(SNAKE_SIZE, 600 - 2 * SNAKE_SIZE)/SNAKE_SIZE)*SNAKE_SIZE, int(random.randint(SNAKE_SIZE, 600 - 2 * SNAKE_SIZE)/SNAKE_SIZE)*SNAKE_SIZE]
+
+
+
 
 while not done:
 	#white background
@@ -103,7 +113,8 @@ while not done:
 		head = snake[len(snake) - 1]
 		score += 1
 		#new apple position
-		apple_pos = [int(random.randint(SNAKE_SIZE, 600 - 2 * SNAKE_SIZE)/SNAKE_SIZE)*SNAKE_SIZE, int(random.randint(SNAKE_SIZE, 600 - 2 * SNAKE_SIZE)/SNAKE_SIZE)*SNAKE_SIZE]
+		#apple_pos = [int(random.randint(SNAKE_SIZE, 600 - 2 * SNAKE_SIZE)/SNAKE_SIZE)*SNAKE_SIZE, int(random.randint(SNAKE_SIZE, 600 - 2 * SNAKE_SIZE)/SNAKE_SIZE)*SNAKE_SIZE]
+		createNewApple()
 
 	#check for losing
 	for l in range(0, len(snake) - 2):
